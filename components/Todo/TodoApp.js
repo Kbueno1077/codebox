@@ -1,19 +1,15 @@
 import React from "react";
-
 import { useRecoilValue, useRecoilState } from "recoil";
 import TodoItem from "/components/Todo/TodoItem.js";
 import TodoItemCreator from "/components/Todo/TodoItemCreator.js";
 import TodoListStats from "/components/Todo/TodoListStats.js";
-import {
-  filteredTodoListState,
-  filterState,
-} from "/recoil/TodoRecoil/todoState";
+import { filterState, todoListState } from "/recoil/TodoRecoil/todoState";
 import Paper from "@mui/material/Paper";
 import { Container, Draggable } from "react-smooth-dnd";
-import useToast from "/hooks/useToast";
 import { useTheme } from "@mui/material/styles";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+import { swapArrayElements } from "/helpers/swapArrayElements";
 
 const TodoWrapper = styled(Paper)(({ theme }) => {
   return {
@@ -45,34 +41,43 @@ const ItemTodoWrapper = styled.div(({ theme }) => {
 });
 
 export default function TodoApp() {
-  const [todoList, setTodoList] = useRecoilState(filteredTodoListState);
+  const [todoList, setTodoList] = useRecoilState(todoListState);
   const appliedFilter = useRecoilValue(filterState);
-  const displayToast = useToast();
+  const [filteredTodos, setFilteredTodos] = React.useState(todoList);
   const theme = useTheme();
 
-  function applyDrop(dropResult) {
-    if (appliedFilter === "Show All") {
-      const { removedIndex, addedIndex, payload, element } = dropResult;
-      if (removedIndex === null && addedIndex === null) return;
-
-      const result = [...todoList];
-      let itemToAdd = payload;
-
-      if (removedIndex !== null) {
-        itemToAdd = result.splice(removedIndex, 1)[0];
-      }
-
-      if (addedIndex !== null) {
-        result.splice(addedIndex, 0, itemToAdd);
-      }
-
-      setTodoList(result);
-    } else {
-      displayToast(
-        "Update positions only available in 'Show All' filter",
-        "info"
-      );
+  React.useEffect(() => {
+    switch (appliedFilter) {
+      case "Show Completed":
+        setFilteredTodos(todoList.filter((item) => item.isComplete));
+        break;
+      case "Show Uncompleted":
+        setFilteredTodos(todoList.filter((item) => !item.isComplete));
+        break;
+      default:
+        setFilteredTodos(todoList);
+        break;
     }
+  }, [todoList, appliedFilter]);
+
+  function applyDrop(dropResult) {
+    const { removedIndex, addedIndex, payload, element } = dropResult;
+    if (removedIndex === null && addedIndex === null) return;
+
+    let rIndex = todoList[filteredTodos[removedIndex].order].order;
+    let aIndex = todoList[filteredTodos[addedIndex].order].order;
+
+    let result = [...todoList];
+
+    if (aIndex !== null && rIndex !== null) {
+      swapArrayElements(result, aIndex, rIndex);
+    }
+
+    result = result.map((item, index) => {
+      return { ...item, order: index };
+    });
+
+    setTodoList(result);
   }
 
   return (
@@ -81,14 +86,12 @@ export default function TodoApp() {
 
       <ItemTodoWrapper>
         <Container onDrop={(e) => applyDrop(e)}>
-          {todoList.length ? (
-            todoList.map((todoItem, index) => {
-              return appliedFilter === "Show All" ? (
+          {filteredTodos.length ? (
+            filteredTodos.map((todoItem, index) => {
+              return (
                 <Draggable key={todoItem.id}>
                   <TodoItem item={todoItem} />
                 </Draggable>
-              ) : (
-                <TodoItem key={todoItem.id} dragable item={todoItem} />
               );
             })
           ) : (

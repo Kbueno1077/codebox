@@ -82,6 +82,7 @@ export default function TodoItemCreator() {
           id: getId(),
           text: inputValue,
           isComplete: false,
+          order: oldTodoList.length,
         },
       ]);
       displayToast("Added todo", "default");

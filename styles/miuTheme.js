@@ -1,5 +1,7 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
+//netlifyGreen: #0E1E25
+
 let lightTheme = createTheme({
   palette: {
     mode: "light",
