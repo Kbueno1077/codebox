@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import Paper from "@mui/material/Paper";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -35,20 +36,22 @@ export default function DeleteDialog({ open, handleClose, onDelete }) {
         TransitionComponent={Transition}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">Delete Todo</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete this todo?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <CancelBtn autoFocus onClick={handleClose}>
-            Cancel
-          </CancelBtn>
-          <Button color="error" onClick={doDelete} autoFocus>
-            Remove
-          </Button>
-        </DialogActions>
+        <Paper sx={{ padding: 2 }}>
+          <DialogTitle id="responsive-dialog-title">Delete Todo</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this todo?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions sx={{ marginTop: 2 }}>
+            <CancelBtn autoFocus onClick={handleClose}>
+              Cancel
+            </CancelBtn>
+            <Button color="error" onClick={doDelete} autoFocus>
+              Remove
+            </Button>
+          </DialogActions>
+        </Paper>
       </Dialog>
     </div>
   );
