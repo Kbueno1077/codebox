@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { swapArrayElements } from "/helpers/swapArrayElements";
+import styles from "../..//styles/Home.module.css";
 
 const TodoWrapper = styled(Paper)(({ theme }) => {
   return {
@@ -20,10 +21,11 @@ const TodoWrapper = styled(Paper)(({ theme }) => {
     color: theme.palette.todos.textColor,
     margin: "0 auto 0",
     borderRadius: "8px",
-    maxWidth: "800px",
+    maxWidth: "700px",
+    width: "100%",
     background: theme.palette.todos.iframe,
     padding: "4.5rem 1.8rem 2.5rem",
-    color: "#fff",
+    color: "#fff"
   };
 });
 
@@ -36,7 +38,7 @@ const ItemTodoWrapper = styled.div(({ theme }) => {
     color: theme.palette.todos.textColor,
     borderRadius: "8px",
     marginBottom: "10px",
-    padding: "1.6rem",
+    padding: "1.6rem"
   };
 });
 
@@ -49,10 +51,10 @@ export default function TodoApp() {
   React.useEffect(() => {
     switch (appliedFilter) {
       case "Show Completed":
-        setFilteredTodos(todoList.filter((item) => item.isComplete));
+        setFilteredTodos(todoList.filter(item => item.isComplete));
         break;
       case "Show Uncompleted":
-        setFilteredTodos(todoList.filter((item) => !item.isComplete));
+        setFilteredTodos(todoList.filter(item => !item.isComplete));
         break;
       default:
         setFilteredTodos(todoList);
@@ -85,7 +87,7 @@ export default function TodoApp() {
       <TodoItemCreator />
 
       <ItemTodoWrapper>
-        <Container onDrop={(e) => applyDrop(e)}>
+        <Container onDrop={e => applyDrop(e)}>
           {filteredTodos.length ? (
             filteredTodos.map((todoItem, index) => {
               return (
@@ -106,7 +108,7 @@ export default function TodoApp() {
           marginTop: 5,
           fontWeight: "lighter",
           fontSize: 12,
-          color: theme.palette.todos.textColor,
+          color: theme.palette.todos.textColor
         }}
       >
         Todos playground

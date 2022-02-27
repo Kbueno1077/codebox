@@ -1,12 +1,13 @@
 import React from "react";
 import Head from "next/head";
+import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Navbar from "../components/Navbar";
-import MainContent from "../components/Main";
-import { useTheme } from "@emotion/react";
-import Image from "next/image";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
+import { useTheme } from "@emotion/react";
+import FilesApp from "/components/FileSystem/FilesApp";
+import { Popper, ClickAwayListener } from "@mui/material";
 
 const TagSpan = styled.span(({ theme }) => {
   if (theme.palette.mode === "light")
@@ -33,24 +34,29 @@ const PillBox = styled(Box)(({ theme }) => {
     };
 });
 
-export default function Home() {
+export default function FilesSystemPage() {
   const theme = useTheme();
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+
+  const handleClick = event => {
+    if (!anchorEl2) setAnchorEl2(anchorEl2 ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl2);
+  const id = open ? "simple-popper" : undefined;
 
   return (
     <>
       <Navbar>
         <div className={styles.container}>
           <Head>
-            <title>Codebox PlayGround</title>
-            <meta
-              name="description"
-              content="A playground for fun an knowledge"
-            />
+            <title>File System</title>
+            <meta name="description" content="A file system example" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
 
           <main className={styles.main}>
-            <MainContent />
+            <FilesApp />
           </main>
 
           <footer className={styles.footer}>
