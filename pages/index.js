@@ -40,6 +40,7 @@ export default function Home() {
     <>
       <Navbar>
         <div className={styles.container}>
+          {/**SEO*/}
           <Head>
             <title>Codebox PlayGround</title>
             <meta
@@ -53,6 +54,7 @@ export default function Home() {
             <MainContent />
           </main>
 
+          {/**Footer, same fot all views */}
           <footer className={styles.footer}>
             <a
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

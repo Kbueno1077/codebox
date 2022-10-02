@@ -92,6 +92,7 @@ export default function Navbar({ children }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/**NavBar Starts */}
       <AppBar position="static" open={open}>
         <Toolbar>
           <IconButton
@@ -105,7 +106,9 @@ export default function Navbar({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Dashboard
+            <Link href="/" passHref>
+              <a>Dashboard</a>
+            </Link>
           </Typography>
           <Box>
             <Tooltip
@@ -134,7 +137,9 @@ export default function Navbar({ children }) {
           </Box>
         </Toolbar>
       </AppBar>
+      {/**NavBar Ends */}
 
+      {/**Side Drawer Starts */}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -170,20 +175,11 @@ export default function Navbar({ children }) {
               </ListItem>
             </a>
           </Link>
-
-          <Link href="/files" passHref>
-            <a>
-              <ListItem button>
-                <ListItemIcon>
-                  <DriveFileMoveIcon />
-                </ListItemIcon>
-                <ListItemText primary={"File System (WIP)"} />
-              </ListItem>{" "}
-            </a>
-          </Link>
         </List>
       </Drawer>
+      {/**Side Drawer Ends */}
 
+      {/*Other Components that also has the navbar and drawer for navigation, Main Views */}
       <Main open={open}>{children}</Main>
     </Box>
   );
