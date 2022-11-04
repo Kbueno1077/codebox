@@ -11,7 +11,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Head from "next/head";
 import { lightTheme, darkTheme } from "../styles/miuTheme";
 import { RecoilRoot } from "recoil";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 /**
 React.useEffect(() => {
@@ -25,7 +24,7 @@ React.useEffect(() => {
 
 export const ColorModeContext = React.createContext({
   themeColor: "light",
-  toggleTheme: () => {},
+  toggleTheme: () => {}
 });
 
 function MyApp({ Component, pageProps }) {
@@ -59,7 +58,7 @@ function MyApp({ Component, pageProps }) {
 
 MyApp.propTypes = {
   Component: PropTypes.func.isRequired,
-  pageProps: PropTypes.object.isRequired,
+  pageProps: PropTypes.object.isRequired
 };
 
 export default MyApp;
