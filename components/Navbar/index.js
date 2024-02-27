@@ -28,12 +28,12 @@ import Link from "next/link";
 
 const drawerWidth = 240;
 
-const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })(
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
 
     "@media (min-width: 700px)": {
@@ -41,20 +41,20 @@ const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })(
       ...(open && {
         transition: theme.transitions.create("margin", {
           easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen
+          duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: `${drawerWidth}px`
-      })
-    }
+        marginLeft: `${drawerWidth}px`,
+      }),
+    },
   })
 );
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== "open"
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
+    duration: theme.transitions.duration.leavingScreen,
   }),
   "@media (min-width: 700px)": {
     ...(open && {
@@ -62,10 +62,10 @@ const AppBar = styled(MuiAppBar, {
       marginLeft: `${drawerWidth}px`,
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
-      })
-    })
-  }
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  },
 }));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -74,7 +74,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end"
+  justifyContent: "flex-end",
 }));
 
 export default function Navbar({ children }) {
@@ -107,7 +107,7 @@ export default function Navbar({ children }) {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link href="/" passHref>
-              <a>Dashboard</a>
+              Dashboard
             </Link>
           </Typography>
           <Box>
@@ -146,8 +146,8 @@ export default function Navbar({ children }) {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: "border-box"
-          }
+            boxSizing: "border-box",
+          },
         }}
         variant="persistent"
         anchor="left"
@@ -166,14 +166,12 @@ export default function Navbar({ children }) {
 
         <List>
           <Link href="/todos" passHref>
-            <a>
-              <ListItem button>
-                <ListItemIcon>
-                  <FormatListNumberedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Todo App"} />
-              </ListItem>
-            </a>
+            <ListItem button>
+              <ListItemIcon>
+                <FormatListNumberedIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Todo App"} />
+            </ListItem>
           </Link>
         </List>
       </Drawer>

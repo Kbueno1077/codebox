@@ -34,7 +34,7 @@ const TodoBox = styled("div", {
   shouldForwardProp: (propName) => propName !== "LastTodo",
 })(({ theme, LastTodo }) => {
   return {
-    backgroundColor: theme.palette.todos.wrapper,
+    backgroundColor: theme.palette.todos.todoWrapper,
     borderRadius: "8px",
     display: "flex",
     justifyContent: "space-between",
